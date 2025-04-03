@@ -44,8 +44,12 @@ movie = pickle.load(open("movie_dict.pkl", "rb"))
 movies = pd.DataFrame(movie)
 
 # Load similarity matrix (compressed version)
-with gzip.open("similarity.pkl.gz", "rb") as f:
-    similarity = pickle.load(f)
+
+
+file_path = "/absolute/path/to/similarity.pkl.gz"
+with gzip.open(file_path, "rb") as f:
+    similarity_data = f.read()
+
 
 # Movie selection dropdown
 selected_movie_name = st.selectbox("Select a Movie", movies['title'].values)
