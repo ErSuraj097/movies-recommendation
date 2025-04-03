@@ -50,14 +50,18 @@ else:
     st.stop()
 
 # Load similarity matrix (compressed version)
-similarity_file = "similarity.pkl.gz"
+# import gzip
+# import pickle
 
-if os.path.exists(similarity_file):
-    with gzip.open(similarity_file, "rb") as f:
-        similarity = pickle.load(f)  # Correct way to load pickled data
-else:
-    st.error("Error: `similarity.pkl.gz` file not found.")
-    st.stop()
+file_path = "similarity.pkl.gz"
+
+try:
+    with gzip.open(file_path, "rb") as f:
+        similarity = pickle.load(f)
+    print("File loaded successfully!")
+except Exception as e:
+    print(f"Error loading file: {e}")
+
 
 # Movie selection dropdown
 selected_movie_name = st.selectbox("Select a Movie", movies['title'].values)
