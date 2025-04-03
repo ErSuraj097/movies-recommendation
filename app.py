@@ -3,7 +3,6 @@ import gzip
 import streamlit as st
 import requests
 import pandas as pd
-import os
 
 # Function to fetch movie poster
 def fetch_poster(movie_id):
@@ -41,27 +40,12 @@ def recommend(movie):
 st.title("🎬 Movie Recommendation System")
 
 # Load movies dataframe
-if os.path.exists("movie_dict.pkl"):
-    with open("movie_dict.pkl", "rb") as f:
-        movie = pickle.load(f)
-    movies = pd.DataFrame(movie)
-else:
-    st.error("Error: `movie_dict.pkl` file not found.")
-    st.stop()
+movie = pickle.load(open("movie_dict.pkl", "rb"))
+movies = pd.DataFrame(movie)
 
 # Load similarity matrix (compressed version)
-# import gzip
-# import pickle
-
-file_path = "similarity.pkl.gz"
-
-try:
-    with gzip.open(file_path, "rb") as f:
-        similarity = pickle.load(f)
-    print("File loaded successfully!")
-except Exception as e:
-    print(f"Error loading file: {e}")
-
+with gzip.open("similarity.pkl.gz", "rb") as f:
+    similarity = pickle.load(f)
 
 # Movie selection dropdown
 selected_movie_name = st.selectbox("Select a Movie", movies['title'].values)
@@ -76,4 +60,3 @@ if st.button("Recommend"):
             col.image(poster[idx], caption=name[idx])
 
 st.caption("Made with ❤️ by :red[_Suraj Yadav_] 😎")
-
