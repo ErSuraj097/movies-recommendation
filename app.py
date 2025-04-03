@@ -72,3 +72,4 @@ if st.button("Recommend"):
             col.image(poster[idx], caption=name[idx])
 
 st.caption("Made with ❤️ by :red[_Suraj Yadav_] 😎")
+
