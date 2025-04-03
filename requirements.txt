@@ -21,4 +21,4 @@ tqdm==4.65.0
 validators==0.20.0
 watchdog==3.0.0
 zipp==3.16.2
-gzip
+rich==13.4.2
